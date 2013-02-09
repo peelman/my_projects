@@ -11,6 +11,8 @@ class MyProjects < Redmine::Hook::ViewListener
         if User.current.member_of?(project)
           html += '<li>'
           html += "#{link_to h(project.name), :controller => 'projects', :action => 'show', :id => project }"
+          html += " | #{link_to 'Issues', :controller => 'issues', :action=>'index', :project_id => project } "
+          html += " | #{link_to 'Wiki', :controller => 'wiki', :action=>'show', :project_id => project } "
           html += '</li>'
         end
       end
