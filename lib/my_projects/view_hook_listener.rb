@@ -1,3 +1,4 @@
+
 class MyProjects < Redmine::Hook::ViewListener
   def view_welcome_index_right(context={})
     load_projects()
@@ -7,6 +8,7 @@ class MyProjects < Redmine::Hook::ViewListener
       html = '<div class="box projects" id="statuses">'
       html += '<h3 class="">My Projects</h3><ul>'
       projects  = Project.visible(User.current).find(:all, :order => "projects.name")
+      admin_projects = []
       projects.each do |project|
         if User.current.member_of?(project)
           html += '<li>'
@@ -14,9 +16,25 @@ class MyProjects < Redmine::Hook::ViewListener
           html += " | #{link_to 'Issues', :controller => 'issues', :action=>'index', :project_id => project } "
           html += " | #{link_to 'Wiki', :controller => 'wiki', :action=>'show', :project_id => project } "
           html += '</li>'
+        else
+          admin_projects << project
         end
       end
-      html += '</ul></div>'
+      html += '</ul>'
+
+      if User.current.admin?
+        html += '<h3>Admin Projects</h3><ul>'
+        admin_projects.each do |project|
+          html += '<li>'
+          html += "#{link_to h(project.name), :controller => 'projects', :action => 'show', :id => project }"
+          html += " | #{link_to 'Issues', :controller => 'issues', :action=>'index', :project_id => project } "
+          html += " | #{link_to 'Wiki', :controller => 'wiki', :action=>'show', :project_id => project } "
+          html += '</li>'
+        end
+        html += '</ul>'
+      end
+      html += '</div>'
       return html
   end
 end
+
