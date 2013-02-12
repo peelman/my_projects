@@ -4,6 +4,10 @@ class MyProjects < Redmine::Hook::ViewListener
     load_projects()
   end
 
+  def view_my_account_contextual(context={})
+    return link_to( 'Edit Welcome Page', :controller => 'my', :action => 'welcome')
+  end
+
   def load_projects()
       html = '<div class="box projects" id="statuses">'
       html += '<h3 class="">' + l(:label_my_projects) + '</h3><ul>'
