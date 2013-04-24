@@ -1,4 +1,3 @@
-
 class MyProjects < Redmine::Hook::ViewListener
   def view_welcome_index_right(context={})
     load_projects()
@@ -39,8 +38,6 @@ class MyProjects < Redmine::Hook::ViewListener
         html += '</ul>'
       end
       html += '</div>'
-      
-      html += "<div> #{User.current.projects_by_role}</div>"
       
       return html
   end
