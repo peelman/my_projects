@@ -12,6 +12,7 @@ class MyProjects < Redmine::Hook::ViewListener
       my_projects = []
 
       all_projects.each do |project|
+        next if project.status == 5
         if User.current.member_of?(project)
           my_projects << project
         else
