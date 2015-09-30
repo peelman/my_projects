@@ -8,7 +8,7 @@ My Projects is a simple plugin that displays your assigned projects on your home
 Installation
 ============
 1. Clone latest version of plugin from git, install it to plugins. 
-	* `git clone ssh://git@github.com/peelman/my_projects.git`
+	* `git clone https://github.com/peelman/my_projects.git`
 
 2. Make sure your plugin folder name is *my_projects*
 
