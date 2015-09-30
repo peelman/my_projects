@@ -7,7 +7,7 @@ class MyProjects < Redmine::Hook::ViewListener
       html = '<div class="box projects" id="statuses">'
       html += '<h3 class="">' + l(:label_my_projects) + '</h3>'
 
-      all_projects  = Project.visible().find(:all, :order => "projects.name")
+      all_projects  = Project.visible().order('projects.name')
       admin_projects = []
       my_projects = []
 
