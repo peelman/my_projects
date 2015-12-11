@@ -46,8 +46,12 @@ class MyProjects < Redmine::Hook::ViewListener
   def link_to_project(project)
     html = '<li>'
     html += "#{link_to h(project.name), { :controller => 'projects', :action => 'show', :id => project } }"
-    html += " | #{link_to l(:label_issue_plural), { :controller => 'issues', :action=>'index', :project_id => project } } "
-    html += " | #{link_to l(:label_wiki), { :controller => 'wiki', :action=>'show', :project_id => project } } "
+    if project.enabled_module_names.include? 'issue_tracking'
+      html += " | #{link_to l(:label_issue_plural), { :controller => 'issues', :action=>'index', :project_id => project } } "
+    end
+    if project.enabled_module_names.include? 'wiki'
+      html += " | #{link_to l(:label_wiki), { :controller => 'wiki', :action=>'show', :project_id => project } } "
+    end
     html += '</li>'
     
     return html
